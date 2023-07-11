@@ -14,8 +14,6 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 
-import static it.uknowngino.moddedintegration.main.ModdedIntegration.PLUGIN_MANAGER;
-
 public enum ServerVersion {
 
     V1_12(V1_12_Implementation.class),
@@ -56,7 +54,7 @@ public enum ServerVersion {
 
             LogUtils.log(Level.SEVERE, "Unable to obtain " + name() + " implementation instance: " + e.getMessage());
             e.printStackTrace();
-            PLUGIN_MANAGER.disablePlugin(ModdedIntegration.getInstance());
+            //PLUGIN_MANAGER.disablePlugin(ModdedIntegration.getInstance());
 
             return null;
 

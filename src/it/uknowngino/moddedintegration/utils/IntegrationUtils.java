@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.logging.Level;
 
-import static it.uknowngino.moddedintegration.main.ModdedIntegration.PLUGIN_MANAGER;
 import static it.uknowngino.moddedintegration.main.ModdedIntegration.SERVER_VERSION;
 
 public class IntegrationUtils {
@@ -49,7 +48,7 @@ public class IntegrationUtils {
 		} else {
 			
 			LogUtils.log(Level.SEVERE, "EssentialsX's " + IMPLEMENTATION.getItemsFileName() + " can't be found! Disabling ModdedIntegration...");
-			PLUGIN_MANAGER.disablePlugin(ModdedIntegration.getInstance());
+			//PLUGIN_MANAGER.disablePlugin(ModdedIntegration.getInstance());
 			
 		}
 

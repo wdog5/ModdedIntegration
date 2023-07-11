@@ -7,7 +7,6 @@ import it.uknowngino.moddedintegration.enums.ServerVersion;
 import it.uknowngino.moddedintegration.utils.IntegrationUtils;
 import it.uknowngino.moddedintegration.utils.LogUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -15,7 +14,6 @@ import java.util.logging.Level;
 public class ModdedIntegration extends JavaPlugin {
 
 	public static final ServerVersion SERVER_VERSION = ServerVersion.getCurrentServerVersion();
-	public static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 
 	private static ModdedIntegration plugin;
 	private static Essentials essentials;
@@ -23,25 +21,11 @@ public class ModdedIntegration extends JavaPlugin {
 	public void onEnable() {
 		
 		plugin = this;
-		
-		if(PLUGIN_MANAGER.isPluginEnabled("Essentials")) {
-
-			essentials = (Essentials) PLUGIN_MANAGER.getPlugin("Essentials");
-
-			Config.reload();
-			IntegrationUtils.populateItemsFile();
-
-			getCommand("moddedintegration").setExecutor(new ModdedIntegrationCommand());
-
-			LogUtils.log(Level.INFO, "The plugin has been enabled successfully with Implementation " + SERVER_VERSION + ".");
-
-		} else {
-
-			LogUtils.log(Level.SEVERE, "EssentialsX was not found in enabled plugins! Disabling ModdedIntegration...");
-			PLUGIN_MANAGER.disablePlugin(this);
-			
-		}
-
+		essentials = (Essentials) Bukkit.getPluginManager().getPlugin("Essentials");
+		Config.reload();
+		IntegrationUtils.populateItemsFile();
+		getCommand("moddedintegration").setExecutor(new ModdedIntegrationCommand());
+		LogUtils.log(Level.INFO, "The plugin has been enabled successfully with Implementation " + SERVER_VERSION + ".");
 	}
 	
 	public void onDisable() {

@@ -4,7 +4,7 @@ version: @version@
 author: UknownGino
 authors: [LeStegii]
 description: Auto-populates essentials items.csv
-softdepend: [Essentials]
+depend: [Essentials]
 commands:
     moddedintegration:
         description: Modded Integration Command
