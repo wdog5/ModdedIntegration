@@ -1,5 +1,6 @@
 package it.uknowngino.moddedintegration.enums;
 
+import it.uknowngino.moddedintegration.implementation.BannerImplementation;
 import it.uknowngino.moddedintegration.implementation.PopulationImplementation;
 import it.uknowngino.moddedintegration.implementation.V1_12_Implementation;
 import it.uknowngino.moddedintegration.implementation.V1_16_Implementation;
@@ -19,7 +20,8 @@ public enum ServerVersion {
 
     V1_12(V1_12_Implementation.class),
     V1_16(V1_16_Implementation.class),
-    V1_18(V1_18_Implementation.class);
+    V1_18(V1_18_Implementation.class),
+    BANNER(BannerImplementation.class);
 
     private final Class<? extends PopulationImplementation> implementationClass;
     private final Supplier<Boolean> customVersionCheck;
@@ -88,14 +90,8 @@ public enum ServerVersion {
                 .filter(ServerVersion::isCurrentServerVersion)
                 .findFirst()
                 .orElseGet(() -> {
-
-                    LogUtils.log(Level.SEVERE, "The server version in use isn't supported by ModdedIntegration! You can open an Issue on GitHub and ask for support.");
-                    PLUGIN_MANAGER.disablePlugin(ModdedIntegration.getInstance());
-
-                    return null;
-
+                    return BANNER;
                 });
-
     }
 
 }

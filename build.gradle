@@ -91,14 +91,16 @@ jar {
 
     }
 
-    baseName rootProject.name + '-' + project.plugin_version
-
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from {
         configurations.internalLibs.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }
+}
+
+base {
+    archivesName = rootProject.name + '-' + project.plugin_version
 }
 
 processResources {

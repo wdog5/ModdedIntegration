@@ -84,7 +84,7 @@ public class ModdedIntegrationCommand implements CommandExecutor, TabCompleter {
 							case "reload":
 								Config.reload();
 								player.sendMessage(ChatUtils.color("&8(&b&l!&8) &7The config has been reloaded &fsuccessfully&7."));
-								player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 100, 1);
+								player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 100, 1);
 								break;
 
 							default:
