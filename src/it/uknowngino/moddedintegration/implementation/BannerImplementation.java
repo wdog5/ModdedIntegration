@@ -70,7 +70,7 @@ public class BannerImplementation implements PopulationImplementation {
             writer.append("\n")
                     .append(material.toString().toLowerCase())
                     .append(",")
-                    .append(String.valueOf(material.getId()))
+                    .append(String.valueOf(material.getKey()))
                     .append(",0");
 
         }
