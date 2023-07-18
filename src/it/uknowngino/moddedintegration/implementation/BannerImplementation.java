@@ -4,11 +4,13 @@ import it.uknowngino.moddedintegration.constructors.PopulationResult;
 import it.uknowngino.moddedintegration.main.ModdedIntegration;
 import it.uknowngino.moddedintegration.utils.LogUtils;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -57,27 +59,25 @@ public class BannerImplementation implements PopulationImplementation {
 
     @Override
     public PopulationResult populateFile() throws IOException {
-
         long startMillis = System.currentTimeMillis();
         List<Material> oldItems = getOldItems();
         List<Material> newItems = getForgeItems().stream()
                 .filter(material -> !oldItems.contains(material))
                 .collect(Collectors.toList());
         BufferedWriter writer = new BufferedWriter(new FileWriter(itemsFile, true));
-
-        for(Material material : newItems) {
-
-            writer.append("\n")
-                    .append(material.toString().toLowerCase())
-                    .append(",")
-                    .append(String.valueOf(material.getKey()))
-                    .append(",0");
-
-        }
-
+        newItems.forEach(material -> {
+            try {
+                NamespacedKey key = (NamespacedKey) Material.class.getDeclaredMethod("getId").invoke(material);
+                writer.append("\n")
+                        .append(material.toString().toLowerCase())
+                        .append(",")
+                        .append(String.valueOf(key))
+                        .append(",0");
+            } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         writer.close();
-
         return new PopulationResult(newItems.size(), System.currentTimeMillis() - startMillis);
-
     }
 }
